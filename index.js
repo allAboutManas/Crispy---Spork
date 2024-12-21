@@ -1,7 +1,9 @@
 import express from "express";
 import dotenv from "dotenv";
+import bodyParser from "body-parser"
 
 const app = express();
+
 app.use(express.json())
 
 dotenv.config();
