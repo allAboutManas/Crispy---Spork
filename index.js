@@ -4,42 +4,36 @@ import bodyParser from "body-parser"
 
 const app = express();
 
-app.use(express.json())
+app.use(bodyParser.text({ type: '*/*' }));
 
 dotenv.config();
 
-const result = [];
+let result ="";
 
-app.post("/postUser" , (req, res)=>{
+app.post("/postText" , (req, res)=>{
 
     try{
-        const {name,age} = req.body;
-    if (!name || !age) {
+        const anyText = req.body;
+    if (!anyText) {
         return res.status(400).send({ message: 'Both name and age are required' });
       }
 
-      const user ={name,age};
-
-      result.push(user);
-      
-        console.log(result);
-      return res.status(201).send({status:true, data:user})
+      result=anyText;
+      console.log(result);
+         
+      return res.status(201).send(anyText)
+     
 
 
     }catch(error){
         return res.status(500).send({ status: false, message: error.message })
-    }
-
-
-
-    
+    } 
 
 })
 
 
-
-app.get("/alluser" , (req, res)=>{
-    res.json(result);
+app.get("/getthetext" , (req, res)=>{
+    res.status(200).json(result);
 })
 
 
